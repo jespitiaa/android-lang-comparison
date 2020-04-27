@@ -1,9 +1,15 @@
 package com.example.projkotlin.functions
+import com.example.projkotlin.BencherHelper
 import java.io.BufferedOutputStream
 import java.util.concurrent.atomic.AtomicInteger
 
+private val TAG = "mandelbrotkt"
+
 fun main(args: Array<String>) {
     mandelbrot.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+    BencherHelper.runGC()
 }
 
 object mandelbrot {

@@ -15,7 +15,6 @@ import com.example.projjava.functions.fasta;
 import com.example.projjava.functions.mandelbrot;
 import com.example.projjava.functions.matrixdeterminant;
 import com.example.projjava.functions.nbody;
-import com.example.projjava.functions.reversecomplement;
 import com.example.projjava.functions.spectralnorm;
 
 public class MyService extends Service {
@@ -28,7 +27,6 @@ public class MyService extends Service {
     private final static String MANDELBROT = "projjava.mandelbrot";
     private final static String MATRIXDET = "projjava.matrixdeterminant";
     private final static String NBODY = "projjava.nbody";
-    private final static String REVCOMP = "projjava.reversecomplement";
     private final static String SPECNORM = "projjava.spectralnorm";
 
     public MyService() {
@@ -95,12 +93,6 @@ public class MyService extends Service {
                     String[] args6 = {"5000"};
                     nbody.main(args6);
                     break;
-                case REVCOMP:
-                    /*
-                     * 1. filename - Name for the file that will be used as inputstream
-                     */
-                    String[] args7 = {};
-                    reversecomplement.main(args7);
                 case SPECNORM:
                     /* PARAMS:
                      * 1. N - number which will be factorialized. Must be at most 12

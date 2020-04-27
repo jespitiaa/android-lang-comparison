@@ -7,6 +7,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:proj_flutter_java/bencher.dart';
+
 const String ALU =
     "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
     "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
@@ -177,4 +179,7 @@ main(args) {
   makeRandomFasta("TWO", "IUB ambiguity codes", IUB, n * 3, writer);
   HOMO_SAPIENS.last = IUB.last;
   makeRandomFasta("THREE", "Homo sapiens frequency", HOMO_SAPIENS, n * 5, writer);
+  Bencher.instance.logEnd("fastaflutter");
+  Bencher.instance.dumpHprof("/sdcard/fastaflutter.hprof");
+  Bencher.instance.runGC();
 }

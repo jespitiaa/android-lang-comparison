@@ -9,6 +9,8 @@ import 'dart:isolate';
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:proj_flutter_java/bencher.dart';
+
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 2000;
 
@@ -46,6 +48,9 @@ void main(args) {
       }
     }
   });
+  Bencher.instance.logEnd("mandelbrotflutter");
+  Bencher.instance.dumpHprof("/sdcard/mandelbrotflutter.hprof");
+  Bencher.instance.runGC();
 }
 
 Uint8List calculateLine (int n, int y) {

@@ -3,8 +3,13 @@
  * https://www.codeproject.com/Articles/405128/Matrix-Operations-in-Java
  */
 package com.example.projjava.functions;
-public class matrixdeterminant {
 
+import android.util.Log;
+
+import com.example.projjava.Bencher;
+
+public class matrixdeterminant {
+    private final static String TAG = "matrixdeterminant";
     private static class Matrix{
 
         private int nrows;
@@ -158,7 +163,11 @@ public class matrixdeterminant {
         Matrix matrix2 = new Matrix(size,size);
         matrix1.fillRandom();
         matrix2.fillMatrix();
-        System.out.println(Matrix.determinant(matrix1));
-        System.out.println(Matrix.determinant(matrix2));
+        Log.d(TAG,Matrix.determinant(matrix1)+"");
+        Log.d(TAG,Matrix.determinant(matrix2)+"");
+
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/matrixdet.hprof");
+        Bencher.getInstance().runGC();
     }
 }

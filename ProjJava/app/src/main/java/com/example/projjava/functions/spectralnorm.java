@@ -7,18 +7,25 @@ contributed by Jarkko Miettinen
 Parallel by The Anh Tran
  */
 package com.example.projjava.functions;
+import android.util.Log;
+
+import com.example.projjava.Bencher;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.concurrent.CyclicBarrier;
 
 public class spectralnorm {
     private static final NumberFormat formatter = new DecimalFormat("#.000000000");
-
+    private static final String TAG = "spectralnorm";
     public static void main(String[] args) {
         int n = 1000;
         if (args.length > 0) n = Integer.parseInt(args[0]);
 
-        System.out.println(formatter.format(spectralnormGame(n)));
+        Log.d(TAG,formatter.format(spectralnormGame(n)));
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/specnorm.hprof");
+        Bencher.getInstance().runGC();
     }
 
 

@@ -7,15 +7,24 @@
    modified slightly by Tagir Valeev
 */
 package com.example.projjava.functions;
+
+import android.util.Log;
+
+import com.example.projjava.Bencher;
+
 public final class nbody {
+    private final static String TAG = "nbody";
     public static void main(String[] args) {
         int n = Integer.parseInt(args[0]);
 
         NBodySystem bodies = new NBodySystem();
-        System.out.printf("%.9f\n", bodies.energy());
+        Log.d(TAG,String.format("%.9f\n", bodies.energy()));
         for (int i=0; i<n; ++i)
             bodies.advance(0.01);
-        System.out.printf("%.9f\n", bodies.energy());
+        Log.d(TAG,String.format("%.9f\n", bodies.energy()));
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/nbody.hprof");
+        Bencher.getInstance().runGC();
     }
 }
 

@@ -8,10 +8,6 @@ import android.os.IBinder
 import android.os.Trace
 import android.util.Log
 import android.widget.Toast
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import com.example.projkotlin.*
 import com.example.projkotlin.functions.*
 
 const val BINTREES = "projkotlin.binarytrees"
@@ -20,7 +16,6 @@ const val FASTA = "projkotlin.fasta"
 const val MANDELBROT = "projkotlin.mandelbrot"
 const val MATRIXDET = "projkotlin.matrixdeterminant"
 const val NBODY = "projkotlin.nbody"
-const val REVCOMP = "projkotlin.reversecomplement"
 const val SPECNORM = "projkotlin.spectralnorm"
 
 class MyService : Service() {
@@ -84,14 +79,6 @@ class MyService : Service() {
                      */
                     val args = arrayOf("5000")
                     nbody.execute(args)
-                }
-                REVCOMP->{
-                    /* PARAMS:
-                     * 1. filename - Name for the file that will be used as inputstream
-                     */
-                    val args = arrayOf("")
-                    //TODO("REVIEW ERRORS")
-                    ReverseComplement().runBenchmark(args)
                 }
                 SPECNORM->{
                     /* PARAMS:

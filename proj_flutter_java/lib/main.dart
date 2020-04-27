@@ -1,14 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:flutter/foundation.dart';
+import 'package:proj_flutter_java/bencher.dart';
 import 'package:proj_flutter_java/functions/binarytrees.dart' as bintrees;
 import 'package:proj_flutter_java/functions/fannkuchredux.dart' as fannkuch;
 import 'package:proj_flutter_java/functions/fasta.dart' as fasta;
 import 'package:proj_flutter_java/functions/mandelbrot.dart' as mandel;
 import 'package:proj_flutter_java/functions/matrixdeterminant.dart' as matrixdet;
 import 'package:proj_flutter_java/functions/nbody.dart' as nbody;
-import 'package:proj_flutter_java/functions/reversecomplement.dart' as revcomp;
 import 'package:proj_flutter_java/functions/spectralnorm.dart' as spec;
 
 SendPort sendPort;
@@ -127,9 +126,6 @@ void callbackFunction(SendPort callerSendPort){
       else if(incomingMessage.message=="nbody"){
         nbody.main(["5000"]);
       }
-      else if(incomingMessage.message=="reversecomplement"){
-        revcomp.main();
-      }
       else if(incomingMessage.message=="spectralnorm"){
         spec.main(["5500"]);
       }
@@ -163,13 +159,17 @@ void dispose(){
 }
 
 void main() async{
+  Bencher.instance.runGC();
+  Bencher.instance.dumpHprof("/sdcard/prevflutter.hprof");
+  Bencher.instance.logStart("main");
+  
   print("Waiting for devtools ");
-  sleep(Duration(seconds: 60));//Time to start up the devtools
+  sleep(Duration(seconds: 5));//Time to start up the devtools
   print("Hola juanito from " + Isolate.current.debugName);
-  Timeline.startSync("function");
+  //Timeline.startSync("function");
   await callerCreateIsolate();
   print(await sendReceive("binarytrees"));
-  Timeline.finishSync();
+  //Timeline.finishSync();
   //print(await sendReceive("fannkuchredux"));
   //print(await sendReceive("fasta"));
   //print(await sendReceive("mandelbrot"));
@@ -177,4 +177,6 @@ void main() async{
   //print(await sendReceive("nbody"));
   //print(await sendReceive("reversecomplement"));
   //print(await sendReceive("spectralnorm"));
+  print("Finished");
 } 
+

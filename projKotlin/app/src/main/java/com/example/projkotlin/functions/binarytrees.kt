@@ -3,15 +3,17 @@ package com.example.projkotlin.functions
 import android.os.Build
 import android.os.Debug
 import android.os.Trace
+import android.util.Log
+import com.example.projkotlin.BencherHelper
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
+private val TAG:String = "binarytreeskt"
 fun main(args: Array<String>) {
     binarytrees.execute(args)
 }
 
 object binarytrees {
-
     private val MIN_DEPTH = 4
     private val EXECUTOR_SERVICE = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
 
@@ -26,50 +28,28 @@ object binarytrees {
         val maxDepth = if (n < MIN_DEPTH + 2) MIN_DEPTH + 2 else n
         val stretchDepth = maxDepth + 1
 
-
-        //------------------------------------------------------------------------------Tracing purposes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Trace.beginSection("Stretch tree creation")
-        }
-        Debug.startMethodTracing("stretch-tree")
-        //------------------------------------------------------------------------------
-
-        println("stretch tree of depth " + stretchDepth + "\t check: "
+        Log.d(TAG,"stretch tree of depth " + stretchDepth + "\t check: "
                 + bottomUpTree(stretchDepth).itemCheck())
 
         //------------------------------------------------------------------------------Tracing purposes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Trace.endSection();
-        }
-        Debug.stopMethodTracing();
-        //------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------Tracing purposes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Trace.beginSection("Longest tree creation")
         }
-        Debug.startMethodTracing("longest-tree")
+        Debug.startMethodTracing("longest-tree")**/
         //------------------------------------------------------------------------------
 
         val longLivedTree = bottomUpTree(maxDepth)
 
         //------------------------------------------------------------------------------Tracing purposes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Trace.endSection();
         }
-        Debug.stopMethodTracing();
+        Debug.stopMethodTracing();*/
         //------------------------------------------------------------------------------
 
         val results = arrayOfNulls<String>((maxDepth - MIN_DEPTH) / 2 + 1)
 
         var d = MIN_DEPTH
-
-        //------------------------------------------------------------------------------Tracing purposes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Trace.beginSection("Executor service loop")
-        }
-        Debug.startMethodTracing("ExSrv-loop")
-        //------------------------------------------------------------------------------
 
         while (d <= maxDepth) {
             val depth = d
@@ -86,11 +66,15 @@ object binarytrees {
             d += 2
         }
         for (str in results) {
-            println(str)
+            Log.d(TAG,str)
         }
 
-        println("long lived tree of depth " + maxDepth +
+        Log.d(TAG,"long lived tree of depth " + maxDepth +
                 "\t check: " + longLivedTree.itemCheck())
+        
+        BencherHelper.logEnd(TAG)
+        BencherHelper.dumpHeap("/sdcard/bintreeskt.hprof")
+        BencherHelper.runGC()
         EXECUTOR_SERVICE.shutdown()
         EXECUTOR_SERVICE.awaitTermination(120L, TimeUnit.SECONDS)
     }

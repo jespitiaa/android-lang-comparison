@@ -6,9 +6,14 @@
  *
  */
 package com.example.projjava.functions;
+import android.util.Log;
+
+import com.example.projjava.Bencher;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class fannkuchredux implements Runnable {
+    private static final String TAG = "Fannkuch";
     private static final int NCHUNKS = 150;
     private static int CHUNKSZ;
     private static int NTASKS;
@@ -19,13 +24,7 @@ public final class fannkuchredux implements Runnable {
     private static AtomicInteger taskId;
 
     int[] p, pp, count;
-
-    void print() {
-        for (int i = 0; i < p.length; i++) {
-            System.out.print(p[i] + 1);
-        }
-        System.out.println();
-    }
+    
 
     void firstPermutation(int idx) {
         for (int i = 0; i < p.length; ++i) {
@@ -120,7 +119,7 @@ public final class fannkuchredux implements Runnable {
     }
 
     static void printResult(int n, int res, int chk) {
-        System.out.println(chk + "\nPfannkuchen(" + n + ") = " + res);
+        Log.d(TAG,chk + "\nPfannkuchen(" + n + ") = " + res);
     }
 
     public static void main(String[] args) {
@@ -168,6 +167,9 @@ public final class fannkuchredux implements Runnable {
             chk += v;
         }
 
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/fannkuch.hprof");
+        Bencher.getInstance().runGC();
         printResult(n, res, chk);
     }
 }

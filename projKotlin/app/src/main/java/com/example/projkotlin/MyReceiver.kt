@@ -8,9 +8,13 @@ import android.util.Log
 
 class MyReceiver : BroadcastReceiver() {
 
-    val TAG :String = "BroacastReceiver"
+    val TAG :String = "BroadcastReceiver"
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
+        BencherHelper.runGC()
+        BencherHelper.dumpHeap("/sdcard/prevkt.hprof")
+        BencherHelper.logStart(TAG)
+
         val operation = intent.getStringExtra("function")
         val intent2 = Intent(context, MyService::class.java)
         intent2.putExtra("function", operation)

@@ -10,6 +10,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:proj_flutter_java/bencher.dart';
+
 const int minDepth = 4;
 
 /// Number of workers to startup. A number below the number of processors on the
@@ -153,6 +155,9 @@ Future<void> main(List<String> args) async {
     print("$iterations\t trees of depth $depth\t check: $check");
   }
 
+  Bencher.instance.logEnd("bintreesflutter");
+  Bencher.instance.dumpHprof("/sdcard/bintreesf.hprof");
+  Bencher.instance.runGC();
   print(
       "long lived tree of depth $maxDepth\t check: ${TreeNode.itemCheck(longLivedTree)}");
 
@@ -160,7 +165,7 @@ Future<void> main(List<String> args) async {
   if (workerDebug) print(sw.elapsedMilliseconds);
 
   // It takes time to clean up the workers, so just exit instead
-  exit(0);
+  //exit(0);
 }
 
 class TreeNode {

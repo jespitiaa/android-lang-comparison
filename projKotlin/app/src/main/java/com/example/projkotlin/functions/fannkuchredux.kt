@@ -1,9 +1,16 @@
 
 package com.example.projkotlin.functions
+import android.util.Log
+import com.example.projkotlin.BencherHelper
 import java.util.concurrent.atomic.AtomicInteger
+
+private val TAG:String = "fannkuch"
 
 fun main(args: Array<String>) {
     fannkuchredux.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/fannkuchkt.hprof")
+    BencherHelper.runGC()
 }
 
 class fannkuchredux : Runnable {
@@ -12,12 +19,7 @@ class fannkuchredux : Runnable {
     internal var pp: IntArray = intArrayOf()
     internal var count: IntArray = intArrayOf()
 
-    internal fun print() {
-        for (i in p.indices) {
-            print(p[i] + 1)
-        }
-        println()
-    }
+
 
     internal fun firstPermutation(idx: Int) {
         var idx = idx
@@ -130,7 +132,7 @@ class fannkuchredux : Runnable {
         private var taskId: AtomicInteger? = null
 
         internal fun printResult(n: Int, res: Int, chk: Int) {
-            println(chk.toString() + "\nPfannkuchen(" + n + ") = " + res)
+            Log.d(TAG,chk.toString() + "\nPfannkuchen(" + n + ") = " + res)
         }
 
         @JvmStatic

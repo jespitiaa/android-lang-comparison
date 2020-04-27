@@ -1,12 +1,17 @@
 
 package com.example.projkotlin.functions
+import com.example.projkotlin.BencherHelper
 import java.io.IOException
 import java.io.OutputStream
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
 
+private val TAG = "fastakt"
 fun main(args: Array<String>) {
     fasta.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/fastakt.hprof")
+    BencherHelper.runGC()
 }
 
 object fasta {

@@ -13,6 +13,8 @@ import android.os.Debug;
 import android.os.Trace;
 import android.util.Log;
 
+import com.example.projjava.Bencher;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -72,16 +74,10 @@ public class binarytrees {
         Log.d(TAG,"long lived tree of depth " + maxDepth +
                 "\t check: " + longLivedTree.itemCheck());
 
-        Log.d(TAG+"-END", ""+ Runtime.getRuntime().totalMemory()+
-                " "+(Runtime.getRuntime().totalMemory() -Runtime.getRuntime().freeMemory())+
-                " "+Debug.getNativeHeapAllocatedSize()+
-                " "+Debug.getPss());
-        try {
-            Debug.dumpHprofData("/sdcard/bintrees.hprof");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Runtime.getRuntime().gc();
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/bintrees.hprof");
+        Bencher.getInstance().runGC();
+
         EXECUTOR_SERVICE.shutdown();
         EXECUTOR_SERVICE.awaitTermination(50L, TimeUnit.SECONDS);
 

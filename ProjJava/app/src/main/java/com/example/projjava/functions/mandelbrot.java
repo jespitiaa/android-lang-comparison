@@ -9,6 +9,8 @@
  * optimization by John Stalcup 2012-2-19
  */
 package com.example.projjava.functions;
+import com.example.projjava.Bencher;
+
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +20,7 @@ public final class mandelbrot {
     static AtomicInteger yCt;
     static double[] Crb;
     static double[] Cib;
+    private final static String TAG = "mandelbrot";
 
     static int getByte(int x, int y){
         int res=0;
@@ -73,6 +76,9 @@ public final class mandelbrot {
         OutputStream stream = new BufferedOutputStream(System.out);
         stream.write(("P4\n"+N+" "+N+"\n").getBytes());
         for(int i=0;i<N;i++) stream.write(out[i]);
+        Bencher.getInstance().logEndResults(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/mandelbrot");
+        Bencher.getInstance().runGC();
         stream.close();
     }
 }

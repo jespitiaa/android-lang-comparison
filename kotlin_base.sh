@@ -15,7 +15,7 @@ echo $FUNCTION
 adb kill-server
 adb start-server
 #Launch the service via broadcast
-adb shell am broadcast -n com.example.projkotlin/.MyReceiver -a com.example.projkotlin.action.bencher -c android.intent.category.HOME -e function projkotlin.binarytrees
+adb shell am broadcast -n com.example.projkotlin/.MyReceiver -a com.example.projkotlin.action.bencher -c android.intent.category.HOME -e function $FUNCTION
 #Get the process ID
 pid=$(adb shell ps | awk '{if($9=="com.example.projkotlin") print $2}')
 if [ -n $pid ] 

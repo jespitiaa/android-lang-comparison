@@ -4,8 +4,16 @@
 * https://www.codeproject.com/Articles/405128/Matrix-Operations-in-Java
 */
 package com.example.projkotlin.functions
+
+import android.util.Log
+import com.example.projkotlin.BencherHelper
+
+private val TAG = "matrixdeterminant"
 fun main(args: Array<String>){
     matrixdeterminant.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+    BencherHelper.runGC()
 }
 
 object matrixdeterminant { 
@@ -17,8 +25,8 @@ object matrixdeterminant {
         val matrix2 = Matrix(size, size)
         matrix1.fillRandom()
         matrix2.fillMatrix()
-        println(Matrix.determinant(matrix1))
-        println(Matrix.determinant(matrix2))
+        Log.d(TAG,Matrix.determinant(matrix1).toString())
+        Log.d(TAG,Matrix.determinant(matrix2).toString())
     }
 }
 internal class Matrix {

@@ -6,6 +6,8 @@
  * modified by Daryl Griffith
  */
 package com.example.projjava.functions;
+import com.example.projjava.Bencher;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -29,6 +31,7 @@ public class fasta {
     static final int IC = 29573;
     static final float ONE_OVER_IM = 1f / IM;
     static int last = 42;
+    private final static String TAG = "fasta";
 
     public static void main(String[] args) {
         int n = 1000;
@@ -68,6 +71,10 @@ public class fasta {
             for (int i = 0; i < BUFFERS_IN_PLAY; i++) {
                 writeBuffer(writer);
             }
+            Bencher.getInstance().logEndResults(TAG);
+            Bencher.getInstance().dumpHeap("/sdcard/fasta.hprof");
+            Bencher.getInstance().runGC();
+
         } catch (IOException ex) {
         }
     }

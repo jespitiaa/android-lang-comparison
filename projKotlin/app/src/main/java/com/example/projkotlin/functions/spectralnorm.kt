@@ -1,9 +1,16 @@
 package com.example.projkotlin.functions
+import android.util.Log
+import com.example.projkotlin.BencherHelper
 import java.text.DecimalFormat
 import java.util.concurrent.CyclicBarrier
 
+private val TAG = "spectralnormkt"
+
 fun main(args: Array<String>) {
     spectralnorm.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+    BencherHelper.runGC()
 }
 
 object spectralnorm {
@@ -14,7 +21,7 @@ object spectralnorm {
         var n = 1000
         if (args.size > 0) n = Integer.parseInt(args[0])
 
-        println(formatter.format(spectralnormGame(n)))
+        Log.d(TAG,formatter.format(spectralnormGame(n)))
     }
 
 

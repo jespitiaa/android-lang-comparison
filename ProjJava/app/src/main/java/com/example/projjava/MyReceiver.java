@@ -13,18 +13,10 @@ public class MyReceiver extends BroadcastReceiver {
     private final static String TAG = "broadcastR";
     @Override
     public void onReceive(Context context, Intent intent) {
-        Runtime.getRuntime().gc();
+        Bencher.getInstance().runGC();
+        Bencher.getInstance().logStart(TAG);
+        Bencher.getInstance().dumpHeap("/sdcard/prev.hprof");
 
-        try {
-            Debug.dumpHprofData("/sdcard/prev.hprof");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
-        Log.d(TAG+"-START", Runtime.getRuntime().totalMemory()+
-                " "+(Runtime.getRuntime().totalMemory() -Runtime.getRuntime().freeMemory())+
-                " "+ Debug.getNativeHeapAllocatedSize()+
-                " "+Debug.getPss());
         String operation = intent.getStringExtra("function");
         Intent intent2 = new Intent(context, MyService.class);
         intent2.putExtra("function", operation);

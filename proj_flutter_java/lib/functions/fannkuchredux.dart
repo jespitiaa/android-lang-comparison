@@ -7,6 +7,8 @@
    which was transliterated from Mike Pall's Lua program
 */
 
+import 'package:proj_flutter_java/bencher.dart';
+
 fannkuch(n) {
   var p = new List<int>(n), q = new List<int>(n), s = new List<int>(n);
   int sign = 1, maxflips = 0, sum = 0, m = n-1;
@@ -52,5 +54,8 @@ fannkuch(n) {
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 7;
   var pf = fannkuch(n);
+  Bencher.instance.logEnd("fannkuchflutter");
+  Bencher.instance.dumpHprof("/sdcard/fannkuchflutter.hprof");
+  Bencher.instance.runGC();
   print("${pf[0]}\nPfannkuchen($n) = ${pf[1]}");
 }

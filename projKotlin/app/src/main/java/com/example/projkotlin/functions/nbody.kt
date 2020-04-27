@@ -1,7 +1,15 @@
 
 package com.example.projkotlin.functions
+
+import android.util.Log
+import com.example.projkotlin.BencherHelper
+
+private val TAG = "nbodykt"
 fun main(args: Array<String>) {
     nbody.execute(args)
+    BencherHelper.logEnd(TAG)
+    BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+    BencherHelper.runGC()
 }
 
 object nbody {
@@ -10,10 +18,10 @@ object nbody {
         val n = Integer.parseInt(args[0])
 
         val bodies = NBodySystem()
-        System.out.printf("%.9f\n", bodies.energy())
+        Log.d(TAG,String.format("%.9f\n", bodies.energy()))
         for (i in 0 until n)
             bodies.advance(0.01)
-        System.out.printf("%.9f\n", bodies.energy())
+        Log.d(TAG,String.format("%.9f\n", bodies.energy()))
     }
 }
 

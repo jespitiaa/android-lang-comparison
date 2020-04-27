@@ -9,6 +9,8 @@
 import 'dart:math' as Math;
 import 'dart:typed_data';
 
+import 'package:proj_flutter_java/bencher.dart';
+
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 0;
 
@@ -18,6 +20,9 @@ void main(args) {
     system.advance(0.01);
   }
   print(system.energy().toStringAsFixed(9));
+  Bencher.instance.logEnd("nbodyflutter");
+  Bencher.instance.dumpHprof("/sdcard/nbodyflutter.hprof");
+  Bencher.instance.runGC();
 }
 
 class Body {
@@ -125,7 +130,7 @@ class NBodySystem {
       px += b.vx * b.mass;
       py += b.vy * b.mass;
       pz += b.vz * b.mass;
-    };
+    }
 
     var sol = bodies[0];
     sol.vx = -px / solarmass;
