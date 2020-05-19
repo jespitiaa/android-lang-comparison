@@ -9,11 +9,17 @@
  * optimization by John Stalcup 2012-2-19
  */
 package com.example.projjava.functions;
+import android.util.Log;
+
 import com.example.projjava.Bencher;
 
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.example.projjava.functions.mandelbrot.getByte;
+
 
 public final class mandelbrot {
     static byte[][] out;
@@ -64,21 +70,62 @@ public final class mandelbrot {
         out=new byte[N][(N+7)/8];
 
         Thread[] pool=new Thread[2*Runtime.getRuntime().availableProcessors()];
-        for (int i=0;i<pool.length;i++)
-            pool[i]=new Thread(){
-                public void run() {
-                    int y; while((y=yCt.getAndIncrement())<out.length) putLine(y,out[y]);
-                }
-            };
-        for (Thread t:pool) t.start();
-        for (Thread t:pool) t.join();
+
+        CountDownLatch startSignal = new CountDownLatch(1);
+        CountDownLatch stopSignal = new CountDownLatch(pool.length-1);
+
+        for (int i=0;i<pool.length;i++) {
+            Thread act = new Thread(new Worker(startSignal, stopSignal, yCt, out));
+            pool[i] = act;
+            act.start();
+            Log.d("iteracion ", "Empezó "+i);
+        }
+        startSignal.countDown();
+        Log.d("inicio", "Se supone que ya estan arriba");
+        stopSignal.await();
+        Log.d("fin", "Se supone que acabaron todos");
 
         OutputStream stream = new BufferedOutputStream(System.out);
+        Log.d("post creacion", ""+ "P4\n"+N+" "+N+"\n");
         stream.write(("P4\n"+N+" "+N+"\n").getBytes());
-        for(int i=0;i<N;i++) stream.write(out[i]);
+
+        //for (Thread t:pool) {t.join();}
         Bencher.getInstance().logEndResults(TAG);
         Bencher.getInstance().dumpHeap("/sdcard/mandelbrot");
         Bencher.getInstance().runGC();
+        stream.write((pool.length+" vivos").getBytes());
         stream.close();
+    }
+}
+
+class Worker implements Runnable{
+    private final CountDownLatch startSignal;
+    private final CountDownLatch doneSignal;
+    private AtomicInteger yCt;
+    private byte[][] out;
+    Worker(CountDownLatch startSignal, CountDownLatch doneSignal, AtomicInteger yCt, byte[][] out) {
+        this.startSignal = startSignal;
+        this.doneSignal = doneSignal;
+        this.yCt = yCt;
+        this.out = out;
+    }
+    public void run() {
+        try {
+            startSignal.await();
+            Log.d("worker", "buena llego la señal");
+            doWork();
+            doneSignal.countDown();
+        } catch (InterruptedException ex) {} // return;
+    }
+
+    void doWork() {
+        Log.d("trabajando en" ,Thread.currentThread().getName());
+        int y;
+        Log.d("datos", "yct="+yCt+", outln="+out.length);
+        while ((y = yCt.getAndIncrement()) < out.length) putLine(y, out[y]);
+    }
+    static void putLine(int y, byte[] line){
+        for (int xb=0; xb<line.length; xb++)
+            line[xb]=(byte)getByte(xb*8,y);
     }
 }

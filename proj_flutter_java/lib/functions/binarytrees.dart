@@ -7,10 +7,7 @@
 */
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:isolate';
-
-import 'package:proj_flutter_java/bencher.dart';
 
 const int minDepth = 4;
 
@@ -105,6 +102,11 @@ class Manager {
     return completer.future;
   }
 
+  Future<void> killWorkers() async{
+    workers.map((w)=>w=null);
+    workers.removeWhere((test)=>true);
+  }
+
   static Future<Manager> init(int workerCount) async {
     // Spawn and wait for all workers to come online
     final sw = Stopwatch()..start();
@@ -125,10 +127,9 @@ class Manager {
   }
 }
 
-Future<void> main(List<String> args) async {
+Future<String> main(List<String> args) async {
   int n = args.length > 0 ? int.parse(args[0]) : 0;
 
-  final sw = Stopwatch()..start();
 
   // Start up the workers, then dispatch work to them
   final futureManager = Manager.init(workerCount);
@@ -151,18 +152,18 @@ Future<void> main(List<String> args) async {
 
   for (int depth = minDepth; depth <= maxDepth; depth += 2) {
     int iterations = 1 << (maxDepth - depth + minDepth);
-    final check = await workFuture.removeAt(0);
-    print("$iterations\t trees of depth $depth\t check: $check");
-  }
+    await workFuture.removeAt(0).then((check){
+      print("$iterations\t trees of depth $depth\t check: $check");
+    });
+  } 
 
-  Bencher.instance.logEnd("bintreesflutter");
-  Bencher.instance.dumpHprof("/sdcard/bintreesf.hprof");
-  Bencher.instance.runGC();
-  print(
-      "long lived tree of depth $maxDepth\t check: ${TreeNode.itemCheck(longLivedTree)}");
+  await manager.killWorkers();
+  
+  print("should be the last goddamn print");
+  return "long lived tree of depth $maxDepth\t check: ${TreeNode.itemCheck(longLivedTree)}";
+  
 
-  sw.stop();
-  if (workerDebug) print(sw.elapsedMilliseconds);
+ 
 
   // It takes time to clean up the workers, so just exit instead
   //exit(0);

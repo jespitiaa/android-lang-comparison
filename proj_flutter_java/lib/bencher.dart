@@ -11,7 +11,13 @@ class Bencher{
     args.putIfAbsent("tag", () => tag);
     await platform.invokeMethod("logStart", args);
   }
-  void logEnd(String tag) async{
+  Future<void> otherLog(String tag, String content) async{
+    Map<String, dynamic> args = <String, dynamic>{};
+    args.putIfAbsent("tag", () => tag);
+    args.putIfAbsent("content", () => content);
+    await platform.invokeMethod("otherLog", args);
+  }
+  Future<void> logEnd(String tag) async{
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent("tag", () => tag);
     await platform.invokeMethod("logEndResults", args);

@@ -22,6 +22,9 @@ object spectralnorm {
         if (args.size > 0) n = Integer.parseInt(args[0])
 
         Log.d(TAG,formatter.format(spectralnormGame(n)))
+        BencherHelper.logEnd(TAG)
+        BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+        BencherHelper.runGC()
     }
 
 

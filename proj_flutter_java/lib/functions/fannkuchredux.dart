@@ -7,13 +7,14 @@
    which was transliterated from Mike Pall's Lua program
 */
 
-import 'package:proj_flutter_java/bencher.dart';
 
 fannkuch(n) {
   var p = new List<int>(n), q = new List<int>(n), s = new List<int>(n);
   int sign = 1, maxflips = 0, sum = 0, m = n-1;
   for(int i=0; i<n; i++){ p[i] = i; q[i] = i; s[i] = i; }
+  
   do {
+
     // Copy and flip.
     var q0 = p[0];                                     // Cache 0th element.
     if (q0 != 0){
@@ -51,11 +52,10 @@ fannkuch(n) {
   } while (true);
 }
 
-void main(args) {
+Future<String> main(args) async{
   int n = args.length > 0 ? int.parse(args[0]) : 7;
   var pf = fannkuch(n);
-  Bencher.instance.logEnd("fannkuchflutter");
-  Bencher.instance.dumpHprof("/sdcard/fannkuchflutter.hprof");
-  Bencher.instance.runGC();
-  print("${pf[0]}\nPfannkuchen($n) = ${pf[1]}");
+  String msg = "${pf[0]}\nPfannkuchen($n) = ${pf[1]}";
+  print(msg);
+  return msg;
 }

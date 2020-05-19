@@ -55,14 +55,14 @@ public class MyService extends Service {
                     /* PARAMS:
                      * 1. maxdepth - Maximum depth for the binary trees
                      */
-                    String[] args = {"21"};
+                    String[] args = {"17"};
                     binarytrees.main(args);
                     break;
                 case FANNKUCH:
                     /* PARAMS:
                      * 1. N - number which will be factorialized. Must be at most 12
                      */
-                    String[] args2 = {"12"};
+                    String[] args2 = {"11"};
                     fannkuchredux.main(args2);
                     break;
                 case FASTA:
@@ -76,21 +76,21 @@ public class MyService extends Service {
                     /* PARAMS:
                      * 1. N - Number of repetitions
                      */
-                    String[] args4 = {"16000"};
+                    String[] args4 = {"12000"};
                     mandelbrot.main(args4);
                     break;
                 case MATRIXDET:
                     /* PARAMS:
                      * 1. N - Matrix size
                      */
-                    String[] args5 = {"10"};
+                    String[] args5 = {"9"};
                     matrixdeterminant.main(args5);
                     break;
                 case NBODY:
                     /* PARAMS:
                      * 1. N - number of bodies
                      */
-                    String[] args6 = {"5000"};
+                    String[] args6 = {"50000"};
                     nbody.main(args6);
                     break;
                 case SPECNORM:

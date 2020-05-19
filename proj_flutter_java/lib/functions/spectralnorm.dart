@@ -7,7 +7,6 @@
 import 'dart:math' as Math;
 import 'dart:typed_data';
 
-import 'package:proj_flutter_java/bencher.dart';
 
 double A(int i, int j) {
   int div = ((i + j) * (i + j + 1) >> 1) + i + 1;
@@ -59,10 +58,8 @@ double spectralNorm(n) {
   return Math.sqrt(vBv / vv);
 }
 
-void main(args) {
+Future<String> main(args) async{
   int n = args.length > 0 ? int.parse(args[0]) : 100;
   print(spectralNorm(n).toStringAsFixed(9));
-  Bencher.instance.logEnd("specnormflutter");
-  Bencher.instance.dumpHprof("/sdcard/specnormflutter");
-  Bencher.instance.runGC();
+  return "specnorm";
 }

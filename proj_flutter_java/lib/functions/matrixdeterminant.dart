@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:proj_flutter_java/bencher.dart';
-
-void main(args) {
+Future<String> main(args) async{
   var size = int.parse(args[0]);
   Matrix matrix1 = new Matrix(size,size);
   Matrix matrix2 = new Matrix(size,size);
@@ -10,8 +8,7 @@ void main(args) {
   matrix2.fillMatrix();
 	print(Matrix.determinant(matrix1));
   print(Matrix.determinant(matrix2));
-  Bencher.instance.logEnd("matrixdetflutter");
-  Bencher.instance.dumpHprof("/sdcard/matrixdetflutter.hprof");
+  return "Completed";
 }
 
 class Matrix{

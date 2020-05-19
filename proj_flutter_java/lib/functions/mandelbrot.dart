@@ -9,9 +9,8 @@ import 'dart:isolate';
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:proj_flutter_java/bencher.dart';
 
-void main(args) {
+Future<String> main(args) async{
   int n = args.length > 0 ? int.parse(args[0]) : 2000;
 
   var threads = Platform.numberOfProcessors;
@@ -41,16 +40,14 @@ void main(args) {
 
   stdout.write('P4\n$n $n\n');
 
-  Future.wait(segmentFutures).then((segments) {
+  return Future.wait(segmentFutures).then((segments) {
     for (var segment in segments) {
       for (var line in segment) {
         stdout.add(line);
       }
     }
+    return "Finished";
   });
-  Bencher.instance.logEnd("mandelbrotflutter");
-  Bencher.instance.dumpHprof("/sdcard/mandelbrotflutter.hprof");
-  Bencher.instance.runGC();
 }
 
 Uint8List calculateLine (int n, int y) {

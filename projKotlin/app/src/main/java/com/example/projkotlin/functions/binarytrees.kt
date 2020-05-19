@@ -65,18 +65,18 @@ object binarytrees {
             }
             d += 2
         }
+
+        EXECUTOR_SERVICE.shutdown()
+        Log.d("executor ended:", EXECUTOR_SERVICE.awaitTermination(120L, TimeUnit.SECONDS).toString())
         for (str in results) {
             Log.d(TAG,str)
         }
-
         Log.d(TAG,"long lived tree of depth " + maxDepth +
                 "\t check: " + longLivedTree.itemCheck())
-        
-        BencherHelper.logEnd(TAG)
+
         BencherHelper.dumpHeap("/sdcard/bintreeskt.hprof")
+        BencherHelper.logEnd(TAG)
         BencherHelper.runGC()
-        EXECUTOR_SERVICE.shutdown()
-        EXECUTOR_SERVICE.awaitTermination(120L, TimeUnit.SECONDS)
     }
 
     private fun bottomUpTree(depth: Int): TreeNode {

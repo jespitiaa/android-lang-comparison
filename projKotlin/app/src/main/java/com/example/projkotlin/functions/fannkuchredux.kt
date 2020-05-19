@@ -8,9 +8,6 @@ private val TAG:String = "fannkuch"
 
 fun main(args: Array<String>) {
     fannkuchredux.execute(args)
-    BencherHelper.logEnd(TAG)
-    BencherHelper.dumpHeap("/sdcard/fannkuchkt.hprof")
-    BencherHelper.runGC()
 }
 
 class fannkuchredux : Runnable {
@@ -182,6 +179,10 @@ class fannkuchredux : Runnable {
             }
 
             printResult(n, res, chk)
+
+            BencherHelper.logEnd(TAG)
+            BencherHelper.dumpHeap("/sdcard/fannkuchkt.hprof")
+            BencherHelper.runGC()
         }
     }
 }

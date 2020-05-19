@@ -1,0 +1,23 @@
+1589603777207 1589603785072 +0% 13580/com.example.projkotlin: 0% user + 0% kernel, +0% 13687/com.example.projkotlin: 0% user + 0% kernel
+1589603808917 1589603816843 +0% 13828/com.example.projkotlin: 0% user + 0% kernel
+1589603840404 1589603848238 +0% 13993/com.example.projkotlin: 0% user + 0% kernel
+1589603871838 1589603879761 +0% 14144/com.example.projkotlin: 0% user + 0% kernel
+1589603901737 1589603909693 +0% 14286/com.example.projkotlin: 0% user + 0% kernel
+1589603933324 1589603941325 +0% 14442/com.example.projkotlin: 0% user + 0% kernel
+1589603965000 1589603973003 +0% 14616/com.example.projkotlin: 0% user + 0% kernel
+1589603996568 1589604004585 +0% 14776/com.example.projkotlin: 0% user + 0% kernel
+1589604028315 1589604036217 +0% 14931/com.example.projkotlin: 0% user + 0% kernel
+1589604059873 1589604067761 +0% 15099/com.example.projkotlin: 0% user + 0% kernel
+1589604091719 1589604099847 +0% 15254/com.example.projkotlin: 0% user + 0% kernel
+1589604123144 1589604131101 +0% 15429/com.example.projkotlin: 0% user + 0% kernel
+1589604154658 1589604162537 +0% 15606/com.example.projkotlin: 0% user + 0% kernel
+1589604186338 1589604194304 , +0% 15768/com.example.projkotlin: 0% user + 0% kernel
+1589604218010 1589604225885 +0% 15913/com.example.projkotlin: 0% user + 0% kernel
+1589604249577 1589604257489 +0% 16071/com.example.projkotlin: 0% user + 0% kernel
+1589604281199 1589604289029 +0% 16230/com.example.projkotlin: 0% user + 0% kernel
+1589604312639 1589604320522 +0% 16393/com.example.projkotlin: 0% user + 0% kernel
+1589604344363 1589604352395 +0% 16545/com.example.projkotlin: 0% user + 0% kernel
+1589604375934 1589604383815 +0% 16708/com.example.projkotlin: 0% user + 0% kernel
+1589604407598 1589604415479 +0% 16854/com.example.projkotlin: 0% user + 0% kernel
+1589604439182 1589604447077 +0% 17007/com.example.projkotlin: 0% user + 0% kernel
+1589604470778 1589604478679 +0% 17184/com.example.projkotlin: 0% user + 0% kernel

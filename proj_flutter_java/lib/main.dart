@@ -18,7 +18,7 @@ Isolate isolate;
 // and proceeds with the initial
 // hand-shaking
 //
-void callerCreateIsolate() async {
+Future<void> callerCreateIsolate() async {
     //
     // Local and temporary ReceivePort to retrieve
     // the new isolate's SendPort
@@ -97,7 +97,7 @@ void callbackFunction(SendPort callerSendPort){
     // Isolate main routine that listens to incoming messages,
     // processes it and provides an answer
     //
-    newIsolateReceivePort.listen((dynamic message){
+    newIsolateReceivePort.listen((dynamic message) async{
       CrossIsolatesMessage incomingMessage = message as CrossIsolatesMessage;
       
       print("received message from " + incomingMessage.sender.hashCode.toString());
@@ -106,28 +106,28 @@ void callbackFunction(SendPort callerSendPort){
       //
       // Process the message
       //
-      String newMessage = "complemented string " + incomingMessage.message;
+      String newMessage;
 
       if(incomingMessage.message=="binarytrees"){
-        bintrees.main(["21"]);
+        newMessage = await bintrees.main(["21"]);
       }
       else if(incomingMessage.message=="fannkuchredux"){
-        fannkuch.main(["12"]);
+        newMessage = await fannkuch.main(["11"]);
       }
       else if(incomingMessage.message=="fasta"){
-        fasta.main(["250000"]);
+        newMessage = await fasta.main(["250000"]);
       }
       else if(incomingMessage.message=="mandelbrot"){
-        mandel.main(["16000"]);
+        newMessage = await mandel.main(["12000"]);
       }
       else if(incomingMessage.message=="matrixdeterminant"){
-        matrixdet.main([3]); //Determine the size of the matrix
+        newMessage = await matrixdet.main(["9"]); //Determine the size of the matrix
       }
       else if(incomingMessage.message=="nbody"){
-        nbody.main(["5000"]);
+        newMessage = await nbody.main(["50000"]);
       }
       else if(incomingMessage.message=="spectralnorm"){
-        spec.main(["5500"]);
+        newMessage = await spec.main(["5500"]);
       }
 
       //
@@ -158,25 +158,40 @@ void dispose(){
     isolate = null;
 }
 
+const operations = ["binarytrees"];  
+//"fannkuchredux","fasta","mandelbrot","matrixdeterminant","nbody","spectralnorm","binarytrees"
+const iterations = 1;
+
 void main() async{
-  Bencher.instance.runGC();
-  Bencher.instance.dumpHprof("/sdcard/prevflutter.hprof");
-  Bencher.instance.logStart("main");
-  
-  print("Waiting for devtools ");
-  sleep(Duration(seconds: 5));//Time to start up the devtools
-  print("Hola juanito from " + Isolate.current.debugName);
-  //Timeline.startSync("function");
+  var st ;
+  var ls ;
   await callerCreateIsolate();
-  print(await sendReceive("binarytrees"));
+  for(var operation in operations) {
+    st = new DateTime.now().millisecondsSinceEpoch;
+    for(var i = 0; i < iterations; i++){
+      await iteration(operation, i, operations, iterations);
+      sleep(Duration(seconds: 2));
+    }//Time to start up the devtools
+    ls = new DateTime.now().millisecondsSinceEpoch;
+    Bencher.instance.otherLog("Operation-ended", "$operation $st $ls");
+  }
+  dispose();
   //Timeline.finishSync();
-  //print(await sendReceive("fannkuchredux"));
-  //print(await sendReceive("fasta"));
-  //print(await sendReceive("mandelbrot"));
-  //print(await sendReceive("matrixdeterminant"));
-  //print(await sendReceive("nbody"));
-  //print(await sendReceive("reversecomplement"));
-  //print(await sendReceive("spectralnorm"));
-  print("Finished");
 } 
+
+Future<void> iteration(String operation, int i, List operations, int iterations) async{
+  print("New iteration $operation $i");
+  Bencher.instance.runGC();
+  Bencher.instance.logStart("$operation");
+  
+  String msg = await sendReceive(operation);
+  print("Message received from isolate: "+ msg.toString());
+  Bencher.instance.logEnd(operation);
+  Bencher.instance.runGC();
+  if(operation==operations[operations.length-1] && i == iterations-1){
+    sleep(Duration(seconds: 8));
+    await Bencher.instance.logEnd("FINAL-ITERATION-ENDED");
+    exit(0);
+  }
+}
 

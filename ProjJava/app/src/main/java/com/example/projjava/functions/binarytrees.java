@@ -65,6 +65,11 @@ public class binarytrees {
         }
         Log.d (TAG, "survives first loop");
 
+
+
+        EXECUTOR_SERVICE.shutdown();
+        Log.d("Exec ended: ", ""+ EXECUTOR_SERVICE.awaitTermination(50L, TimeUnit.SECONDS));
+
         for (final String str : results) {
             if(str!=null){
                 Log.d(TAG,str);
@@ -77,9 +82,6 @@ public class binarytrees {
         Bencher.getInstance().logEndResults(TAG);
         Bencher.getInstance().dumpHeap("/sdcard/bintrees.hprof");
         Bencher.getInstance().runGC();
-
-        EXECUTOR_SERVICE.shutdown();
-        EXECUTOR_SERVICE.awaitTermination(50L, TimeUnit.SECONDS);
 
     }
 

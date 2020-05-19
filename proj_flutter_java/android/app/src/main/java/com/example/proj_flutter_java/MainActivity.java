@@ -25,7 +25,7 @@ public class MainActivity extends FlutterActivity {
                 if (call.method.equals("logStart")) {
                   logStart(call.argument("tag"));
                 }
-                else if (call.method.equals("logEnd")) {
+                else if (call.method.equals("logEndResults")) {
                   logEndResults(call.argument("tag"));
                 }
                 else if (call.method.equals("runGC")) {
@@ -33,6 +33,9 @@ public class MainActivity extends FlutterActivity {
                 }
                 else if (call.method.equals("dumpHprof")) {
                   dumpHeap(call.argument("path"));
+                }
+                else if (call.method.equals("otherLog")) {
+                  otherLog(call.argument("tag"), call.argument("content"));
                 }
               }});
   }
@@ -50,6 +53,9 @@ public class MainActivity extends FlutterActivity {
             " "+(Runtime.getRuntime().totalMemory() -Runtime.getRuntime().freeMemory())+
             " "+Debug.getNativeHeapAllocatedSize()+
             " "+Debug.getPss());
+  }
+  public void otherLog(String tag, String content){
+    Log.d(tag, content);
   }
   public void dumpHeap(String path){
     try {

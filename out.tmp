@@ -1,0 +1,107 @@
+Load: 0.24 / 0.55 / 0.52
+CPU usage from 300201ms to 136ms ago (2020-05-18 23:16:45.403 to 2020-05-18 23:21:45.468):
+  3.9% 32204/adbd: 0.5% user + 3.4% kernel / faults: 659820 minor
+  1.8% 436/logd: 1.8% user + 0% kernel / faults: 402 minor
+  1.4% 1451/system_server: 1% user + 0.4% kernel / faults: 18397 minor 1 major
+  0.5% 2490/sugov:4: 0% user + 0.5% kernel
+  0.2% 2489/sugov:0: 0% user + 0.2% kernel
+  0.2% 7/rcu_preempt: 0% user + 0.2% kernel
+  0.1% 45/rcuop/4: 0% user + 0.1% kernel
+  0.1% 29670/kworker/7:1: 0% user + 0.1% kernel / faults: 16 minor
+  0.1% 882/msm_irqbalance: 0% user + 0.1% kernel / faults: 453 minor
+  0.1% 437/servicemanager: 0% user + 0.1% kernel / faults: 686 minor
+  0.1% 341/mmc-cmdqd/0: 0% user + 0.1% kernel
+  0.1% 1//init: 0% user + 0% kernel / faults: 2342 minor
+  0.1% 13157/kworker/u16:3: 0% user + 0.1% kernel
+  0.1% 28406/kworker/u16:0: 0% user + 0.1% kernel
+  0% 25737/kworker/6:3: 0% user + 0% kernel
+  0% 80/irq/92-cpr: 0% user + 0% kernel
+  0% 29958/kworker/4:0: 0% user + 0% kernel / faults: 8 minor
+  0% 10/rcuop/0: 0% user + 0% kernel
+  0% 61/rcuop/6: 0% user + 0% kernel
+  0% 4985/kworker/5:2: 0% user + 0% kernel
+  0% 20194/kworker/u16:2: 0% user + 0% kernel
+  0% 53/rcuop/5: 0% user + 0% kernel
+  0% 2407/com.google.android.gms.persistent: 0% user + 0% kernel / faults: 428 minor 1 major
+  0% 690/displayfeature: 0% user + 0% kernel
+  0% 981/qcrild: 0% user + 0% kernel / faults: 77 minor 4 major
+  0% 25074/com.lbe.security.miui: 0% user + 0% kernel / faults: 442 minor 2 major
+  0% 29/rcuop/2: 0% user + 0% kernel
+  0% 3516/com.miui.securitycenter.remote: 0% user + 0% kernel / faults: 122 minor
+  0% 10540/kworker/5:1: 0% user + 0% kernel
+  0% 2488/irq/73-408000.q: 0% user + 0% kernel
+  0% 2620/com.google.android.gms: 0% user + 0% kernel / faults: 381 minor
+  0% 69/rcuop/7: 0% user + 0% kernel
+  0% 590/lmkd: 0% user + 0% kernel
+  0% 1766/com.android.systemui: 0% user + 0% kernel / faults: 45 minor 5 major
+  0% 7207/kworker/0:2: 0% user + 0% kernel
+  0% 21741/com.android.vending: 0% user + 0% kernel / faults: 104 minor 1 major
+  0% 27980/com.android.defcontainer: 0% user + 0% kernel / faults: 299 minor
+  0% 41/migration/4: 0% user + 0% kernel
+  0% 49/migration/5: 0% user + 0% kernel
+  0% 120/kswapd0: 0% user + 0% kernel
+  0% 21/rcuop/1: 0% user + 0% kernel
+  0% 360/core_ctl/0: 0% user + 0% kernel
+  0% 591/surfaceflinger: 0% user + 0% kernel / faults: 61 minor 1 major
+  0% 675/hvdcp_opti: 0% user + 0% kernel / faults: 130 minor
+  0% 21970/kworker/7:0: 0% user + 0% kernel
+  0% 29423/kworker/2:2: 0% user + 0% kernel
+  0% 50/ksoftirqd/5: 0% user + 0% kernel
+  0% 58/ksoftirqd/6: 0% user + 0% kernel
+  0% 66/ksoftirqd/7: 0% user + 0% kernel
+  0% 425/jbd2/mmcblk0p60: 0% user + 0% kernel
+  0% 479/netd: 0% user + 0% kernel / faults: 26 minor
+  0% 541/healthd: 0% user + 0% kernel / faults: 160 minor
+  0% 1313/kworker/1:2: 0% user + 0% kernel
+  0% 2108/com.android.phone: 0% user + 0% kernel / faults: 53 minor 3 major
+  0% 25259/kworker/3:0: 0% user + 0% kernel
+  0% 25/migration/2: 0% user + 0% kernel
+  0% 33/migration/3: 0% user + 0% kernel
+  0% 42/ksoftirqd/4: 0% user + 0% kernel
+  0% 57/migration/6: 0% user + 0% kernel
+  0% 337/irq/82-7824900.: 0% user + 0% kernel
+  0% 446/kauditd: 0% user + 0% kernel
+  0% 480/zygote: 0% user + 0% kernel / faults: 236 minor
+  0% 564/vendor.qti.hardware.perf@1.0-service: 0% user + 0% kernel / faults: 4 minor
+  0% 617/sensors.qti: 0% user + 0% kernel / faults: 60 minor
+  0% 709/installd: 0% user + 0% kernel / faults: 30 minor
+  0% 721/statsd: 0% user + 0% kernel / faults: 160 minor
+  0% 7875/com.miui.powerkeeper: 0% user + 0% kernel / faults: 18 minor
+  0% 17351/kworker/6:2: 0% user + 0% kernel
+  0% 17/migration/1: 0% user + 0% kernel
+  0% 18/ksoftirqd/1: 0% user + 0% kernel
+  0% 37/rcuop/3: 0% user + 0% kernel
+  0% 46/rcuos/4: 0% user + 0% kernel
+  0% 62/rcuos/6: 0% user + 0% kernel
+  0% 65/migration/7: 0% user + 0% kernel
+  0% 400/ueventd: 0% user + 0% kernel / faults: 5 minor
+  0% 438/hwservicemanager: 0% user + 0% kernel / faults: 152 minor
+  0% 551/android.hardware.health@2.0-service: 0% user + 0% kernel / faults: 105 minor
+  0% 555/android.hardware.sensors@1.0-service: 0% user + 0% kernel
+  0% 562/vendor.qti.gnss@1.0-service: 0% user + 0% kernel / faults: 56 minor
+  0% 583/charge_logger: 0% user + 0% kernel / faults: 31 minor
+  0% 658/traced_probes: 0% user + 0% kernel / faults: 44 minor
+  0% 710/keystore: 0% user + 0% kernel / faults: 6 minor
+  0% 719/miuibooster: 0% user + 0% kernel
+  0% 1009/qcrild: 0% user + 0% kernel / faults: 397 minor
+  0% 1022/modem_IPCRTR: 0% user + 0% kernel
+  0% 1764/VosWDThread: 0% user + 0% kernel
+  0% 1776/VosMCThread: 0% user + 0% kernel
+  0% 1777/VosTXThread: 0% user + 0% kernel
+  0% 1778/VosRXThread: 0% user + 0% kernel
+  0% 2115/com.miui.home: 0% user + 0% kernel / faults: 10 minor 1 major
+  0% 2746/com.miui.daemon: 0% user + 0% kernel / faults: 266 minor 5 major
+  0% 2890/com.mi.android.globalminusscreen: 0% user + 0% kernel / faults: 73 minor 4 major
+  0% 3037/com.android.documentsui: 0% user + 0% kernel / faults: 36 minor 3 major
+  0% 20210/com.android.camera: 0% user + 0% kernel / faults: 4 minor 4 major
+  0% 20352/com.xiaomi.mi_connect_service: 0% user + 0% kernel / faults: 35 minor
+  0% 25106/com.xiaomi.xmsf: 0% user + 0% kernel / faults: 28 minor
+  0% 26512/com.miui.msa.global: 0% user + 0% kernel / faults: 30 minor
+  0% 26578/com.miui.analytics: 0% user + 0% kernel / faults: 4 minor
+  0% 28359/com.android.settings:remote: 0% user + 0% kernel / faults: 42 minor
+ +0% 1903/kworker/4:1: 0% user + 0% kernel
+ +0% 2273/kworker/6:0: 0% user + 0% kernel
+ +0% 3108/com.example.proj_flutter_java: 0% user + 0% kernel
+ +0% 4282/kworker/5:0: 0% user + 0% kernel
+ +0% 4368/kworker/7:2: 0% user + 0% kernel
+9.7% TOTAL: 7.1% user + 2.2% kernel + 0% iowait + 0.1% irq + 0% softirq

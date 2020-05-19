@@ -20,12 +20,6 @@ public class MyReceiver extends BroadcastReceiver {
         String operation = intent.getStringExtra("function");
         Intent intent2 = new Intent(context, MyService.class);
         intent2.putExtra("function", operation);
-        Log.i(TAG, "waiting for 5 seconds for unplugging the phone");
-        try{
-            Thread.sleep(5000);
-        }catch (Exception e){
-            Log.i(TAG,"sleep time interrupted");
-        }
         Log.i(TAG, "Launching service (API VERSION: "+ Build.VERSION.SDK_INT+")");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent2);

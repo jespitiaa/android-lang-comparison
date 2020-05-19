@@ -9,9 +9,8 @@
 import 'dart:math' as Math;
 import 'dart:typed_data';
 
-import 'package:proj_flutter_java/bencher.dart';
 
-void main(args) {
+Future<String> main(args) async{
   int n = args.length > 0 ? int.parse(args[0]) : 0;
 
   NBodySystem system = NBodySystem();
@@ -20,9 +19,7 @@ void main(args) {
     system.advance(0.01);
   }
   print(system.energy().toStringAsFixed(9));
-  Bencher.instance.logEnd("nbodyflutter");
-  Bencher.instance.dumpHprof("/sdcard/nbodyflutter.hprof");
-  Bencher.instance.runGC();
+  return "Ok";
 }
 
 class Body {

@@ -1,6 +1,8 @@
 package com.example.projkotlin.functions
+import android.util.Log
 import com.example.projkotlin.BencherHelper
 import java.io.BufferedOutputStream
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicInteger
 
 private val TAG = "mandelbrotkt"
@@ -78,22 +80,58 @@ object mandelbrot {
         out = Array(N) { ByteArray((N + 7) / 8) }
 
         val pool = arrayOfNulls<Thread>(2 * Runtime.getRuntime().availableProcessors())
-        for (i in pool.indices)
-            pool[i] = object : Thread() {
-                override fun run() {
-                    var y: Int = yCt.getAndIncrement()
-                    while (y < out.size) {
-                        putLine(y, out[y])
-                        y = yCt.getAndIncrement()
-                    }
-                }
-            }
-        for (t in pool) t!!.start()
-        for (t in pool) t!!.join()
+
+        val startSignal = CountDownLatch(1)
+        val stopSignal = CountDownLatch(pool.size - 1)
+
+        for (i in pool.indices) {
+            var nuevo = Thread(Worker(startSignal, stopSignal, yCt, out))
+            pool[i] = nuevo
+            nuevo.start()
+            Log.d("abr", "is started" + pool[i]!!.isAlive())
+        }
+        Log.d("abr", "pool "+pool.size)
+        startSignal.countDown()
+        Log.d("inicio", "Se supone que ya estan arriba")
+        stopSignal.await()
+        Log.d("fin", "Se supone que acabaron todos")
 
         val stream = BufferedOutputStream(System.out)
         stream.write("P4\n$N $N\n".toByteArray())
-        for (i in 0 until N) stream.write(out[i])
+        //for (i in 0 until N) stream.write(out[i])
+        BencherHelper.logEnd(TAG)
+        BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+        BencherHelper.runGC()
         stream.close()
+    }
+}
+
+internal class Worker(
+    private val startSignal: CountDownLatch,
+    private val doneSignal: CountDownLatch,
+    private val yCt: AtomicInteger,
+    private val out: Array<ByteArray>
+) : Runnable {
+    override fun run() {
+        try {
+            startSignal.await()
+            Log.d("worker", "buena llego la señal")
+            doWork()
+            Log.d("abr", "Despues del dowork")
+            doneSignal.countDown()
+            Log.d("abr", "Despues del countdown")
+        } catch (ex: InterruptedException) {
+        }
+        // return;
+    }
+
+    fun doWork() {
+        Log.d("trabajando en", Thread.currentThread().name)
+        Log.d("datos", "yct=" + yCt + ", outln=" + out.size)
+        var y: Int = mandelbrot.yCt.getAndIncrement()
+        while (y < mandelbrot.out.size) {
+            mandelbrot.putLine(y, mandelbrot.out[y])
+            y = mandelbrot.yCt.getAndIncrement()
+        }
     }
 }

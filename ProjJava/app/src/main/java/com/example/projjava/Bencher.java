@@ -29,11 +29,11 @@ public class Bencher {
                 " "+Debug.getPss());
     }
     public void dumpHeap(String path){
-        try {
+        /*try {
             Debug.dumpHprofData(path);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
     public void runGC(){
         Runtime.getRuntime().gc();

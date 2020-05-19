@@ -24,10 +24,10 @@ object BencherHelper {
         )
     }
     fun dumpHeap(path:String){
-        try {
+        /*try {
             Debug.dumpHprofData(path)
         } catch (e: IOException) {
             e.printStackTrace()
-        }
+        }*/
     }
 }

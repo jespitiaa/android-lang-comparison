@@ -7,8 +7,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:proj_flutter_java/bencher.dart';
-
 const String ALU =
     "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
     "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
@@ -144,7 +142,7 @@ makeRepeatFasta(String id, String desc, String alu, int _nChars, IOSink writer) 
 
 
 
-void makeRandomFasta(String id, String desc, Frequency fpf, int nChars, IOSink writer) {
+Future<void> makeRandomFasta(String id, String desc, Frequency fpf, int nChars, IOSink writer) async{
   writer.write(">${id} ${desc}\n");
 
   Uint8List buffer = new Uint8List(BUFFER_SIZE);
@@ -165,11 +163,11 @@ void makeRandomFasta(String id, String desc, Frequency fpf, int nChars, IOSink w
     nChars -= chunkSize;
   }
 
-  writer.add(new Uint8List.view(buffer.buffer, 0, bufferIndex));
+  return writer.add(new Uint8List.view(buffer.buffer, 0, bufferIndex));
 }
 
 
-main(args) {
+Future<String> main(args) async{
   IOSink writer = stdout;
 
   int n = args.length > 0 ? int.parse(args[0]) : 250;
@@ -178,8 +176,6 @@ main(args) {
   IUB.last = 42;
   makeRandomFasta("TWO", "IUB ambiguity codes", IUB, n * 3, writer);
   HOMO_SAPIENS.last = IUB.last;
-  makeRandomFasta("THREE", "Homo sapiens frequency", HOMO_SAPIENS, n * 5, writer);
-  Bencher.instance.logEnd("fastaflutter");
-  Bencher.instance.dumpHprof("/sdcard/fastaflutter.hprof");
-  Bencher.instance.runGC();
+  await makeRandomFasta("THREE", "Homo sapiens frequency", HOMO_SAPIENS, n * 5, writer);
+  return "Success";
 }

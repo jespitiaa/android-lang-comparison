@@ -18,12 +18,7 @@ class MyReceiver : BroadcastReceiver() {
         val operation = intent.getStringExtra("function")
         val intent2 = Intent(context, MyService::class.java)
         intent2.putExtra("function", operation)
-        Log.i(TAG, "waiting for 5 seconds for unplugging the phone")
-        try {
-            Thread.sleep(5000)
-        } catch (e: Exception) {
-            Log.i(TAG, "sleep time interrupted")
-        }
+
         Log.i(TAG, "Launching service")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent2)

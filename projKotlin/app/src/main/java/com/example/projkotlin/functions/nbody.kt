@@ -22,6 +22,11 @@ object nbody {
         for (i in 0 until n)
             bodies.advance(0.01)
         Log.d(TAG,String.format("%.9f\n", bodies.energy()))
+
+
+        BencherHelper.logEnd(TAG)
+        BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+        BencherHelper.runGC()
     }
 }
 

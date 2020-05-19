@@ -69,6 +69,12 @@ object fasta {
             }
         } catch (ex: IOException) {
         }
+        finally {
+
+            BencherHelper.logEnd(TAG)
+            BencherHelper.dumpHeap("/sdcard/fastakt.hprof")
+            BencherHelper.runGC()
+        }
 
     }
 

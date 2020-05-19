@@ -27,6 +27,9 @@ object matrixdeterminant {
         matrix2.fillMatrix()
         Log.d(TAG,Matrix.determinant(matrix1).toString())
         Log.d(TAG,Matrix.determinant(matrix2).toString())
+        BencherHelper.logEnd(TAG)
+        BencherHelper.dumpHeap("/sdcard/$TAG.hprof")
+        BencherHelper.runGC()
     }
 }
 internal class Matrix {
